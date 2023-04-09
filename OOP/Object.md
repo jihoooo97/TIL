@@ -6,11 +6,18 @@
 ```swift
 class SomeClass {
     var someProperty: Any = 1
+    
+    func someMethod() {
+        print(self.someProperty)
+    }
 }
 
-class Main {
-    let someClass = SomeClass() // 클래스의 인스턴스
-}
+
+let someInstance = SomeClass() // 클래스의 인스턴스
+someInstance.someProperty = 100
+
+print(someInstance.someProperty) // 100
+someInstance.someMethod()        // 100
 ```
 <br>
 
