@@ -5,7 +5,7 @@
 <br>
 
 ```swift
-  Class SomeClass {
+  class SomeClass {
   // some code
   }
 ```
