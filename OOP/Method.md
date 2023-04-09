@@ -13,11 +13,8 @@ class SomeClass {
     }
 }
 
-class Main {
-    let someClass = SomeClass()
+
+let someClass = SomeClass()
   
-    init() {
-        self.someClass.someMethod()  // 1
-    }
-}
+someClass.someMethod()  // 1
 ```
