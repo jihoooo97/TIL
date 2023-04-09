@@ -14,10 +14,9 @@ class SomeClass {
 }
 
 class Main {
-    var someClass: SomeClass
+    let someClass = SomeClass()
   
     init() {
-        self.someClass = SomeClass()
         self.someClass.someMethod()  // 1
     }
 }
