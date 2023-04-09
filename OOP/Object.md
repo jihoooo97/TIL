@@ -1,6 +1,7 @@
 # Object
 - '클래스'의 인스턴스
 - 객체는 자신 고유의 속성이 있으며 클래스에서 정의한 행위를 할 수 있다
+<br>
 
 ```swift
 class SomeClass {
