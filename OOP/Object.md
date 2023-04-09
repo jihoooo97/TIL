@@ -8,11 +8,7 @@ class SomeClass {
 }
 
 class Main {
-    var someClass: SomeClass
-  
-    init() {
-        self.someClass = SomeClass() // 클래스의 인스턴스
-    }
+    let someClass = SomeClass() // 클래스의 인스턴스
 }
 ```
 <br>
