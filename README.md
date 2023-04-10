@@ -10,6 +10,7 @@ Today I Learned
 <br><br><br>
 
 ## Swift
+* [Enum]()
 <br><br><br>
 
 ## UIKit
