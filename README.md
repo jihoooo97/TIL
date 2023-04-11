@@ -9,6 +9,10 @@ Today I Learned
 * [Method](https://github.com/jihoooo97/TIL/blob/main/OOP/Method.md)
 <br><br><br>
 
+# FP
+* [FP](https://github.com/jihoooo97/TIL/blob/main/FP/FP.md)
+<br><br><br>
+
 ## Swift
 * [Enum]()
 <br><br><br>
