@@ -9,12 +9,12 @@
 
 #### *일급 객체
 > 함수가 일급 객체가 된다 == 다양한 종류의 함수를 [호출, 전달, 반환 등]의 동작만으로도 프로그램을 구현할 수 있다
-> - 조건
->   - 전달인자(Argument)로 전달할 수 있어야한다
->   - 동적 프로퍼티 할당이 가능해야한다
->   - 변수나 데이터 구조 안에 담을 수 있어야한다
->   - 반환 값으로 사용할 수 있어야한다
->   - 할당할 때 사용된 이름과 관계없이 고유한 객체로 구별할 수 있어야한다
+- 조건
+  - 전달인자(Argument)로 전달할 수 있어야한다
+  - 동적 프로퍼티 할당이 가능해야한다
+  - 변수나 데이터 구조 안에 담을 수 있어야한다
+  - 반환 값으로 사용할 수 있어야한다
+  - 할당할 때 사용된 이름과 관계없이 고유한 객체로 구별할 수 있어야한다
 <br>
 
 ### 장점
@@ -25,7 +25,7 @@
 <br>
 
 ### 수학적 함수 vs 명령형 함수
-코드 이해와 실행 결과의 관점에서 큰 차이
+> 코드 이해와 실행 결과의 관점에서 큰 차이
 - 수학적 함수
   - 순수하게 함수에 전달된 인자 값만 결과에 영향을 주므로 상태 값을 갖지 않고 순수하게 함수만으로 동작한다  
     -> 어떤 상황에서 프로그램을 실행하더라도 일정하게 같은 결과를 도출
@@ -40,4 +40,56 @@
     -> 함수 내부의 처리에도 영향을 미칠 수 있다
 <br>
 
-#### 코드 비교
+### 코드 비교
+- 명령형 프로그래밍
+```swift
+func doSomething() {
+    print("do something")
+}
+
+func doAnotherThing() {
+    print("do another thing")
+}
+
+func excuteAll() {
+    doSomeThing()
+    doAnotherThing()
+}
+
+excuteAll()
+
+//================
+
+func sum(first: Int, second: Int) -> Int {
+    return first + second
+}
+
+sum(first: 10, second: 5)
+```
+- 함수형 프로그래밍
+```swift
+func doSomething() {
+    print("do something")
+}
+
+func doAnotherThing() {
+    print("do another thing")
+}
+
+func excute(tasks: [() -> Void]) {
+    for task in tasks {
+        task()
+    }
+}
+
+excute(tasks: [doSomething, doAnotherThing])
+
+//================
+
+func sum(first: Int) -> ((Int) -> Int) {
+    return { second in first + second }
+}
+
+sum(first: 10)(5)
+```
+<br>
