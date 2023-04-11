@@ -86,7 +86,7 @@ excute(tasks: [doSomething, doAnotherThing])
 
 //================
 
-func sum(first: Int) -> ((Int) -> Int) {
+func sum(first: Int) -> ((Int) -> Int) { // 커링
     return { second in first + second }
 }
 
