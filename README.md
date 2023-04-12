@@ -15,6 +15,13 @@ Today I Learned
 
 ## Swift
 * [변수와 상수](https://github.com/jihoooo97/TIL/blob/main/Swift/변수와%20상수.md)
+* [데이터 타입](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Type.md)
+* [Int와 UInt](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Int와%20UInt.md)
+* [Bool](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Bool.md)
+* [Float과 Double](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Float과%20Double.md)
+* [Character](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Character.md)
+* [String](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/String.md)
+* [Any, AnyObject와 nil](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Any,%20AnyObject와%20nil.md)
 * [Enum]()
 <br><br><br>
 
