@@ -27,52 +27,68 @@ let unicodeScalarValue: String = "\u{2665}"
 let hello: String = "Hello"
 let jiho: String = "Jiho"
 var greeting: String = "hello"
+```
+<br>
 
-// 연산자를 통한 문자열 결합
+### 1. 연산자를 통한 문자열 결합
+```swift
 greeting += " "
 greeting += jiho
 greeting += "!"
 print(greeting) // hello Jiho!
+```
+<br>
 
-
-// 연산자를 통한 문자열 비교
+### 2. 연산자를 통한 문자열 비교
+```swift
 print(hello == "Hello") // true
 print(hello == "hello") // false
+```
+<br>
 
-
-// 메서드를 통한 접두어, 접미어 확인
+### 3. 메서드를 통한 접두어, 접미어 확인
+```swift
 print(hello.hasPrefix("He"))  // true
 print(hello.hasPrefix("he"))  // false
 print(hello.hasSuffix("He"))  // false
 print(hello.hasSuffix("llo")) // true
+```
+<br>
 
-
-// 메서드를 통한 대소문자 변환
-var convertedString: String = ""
+### 4. 메서드를 통한 대소문자 변환
+```swift
+ar convertedString: String = ""
 
 convertedString = hello.uppercased()
 print(convertedString) // HELLO
 
 convertedString = hello.lowercased()
 print(convertedString) // hello
+```
+<br>
 
-
-// 프로퍼티를 통한 빈 문자열 확인
+### 5. 프로퍼티를 통한 빈 문자열 확인
+```swift
 greeting = "헤헷 빈 문자열일까요?"
 print(greeting.isEmpty) // false
 
 greeting = ""
 print(greeting.isEmpty) // true
+```
+<br>
 
-
-// 프로퍼티를 통한 빈 문자열 확인
+### 6. 프로퍼티를 통한 빈 문자열 확인
+```swift
 print(greeting.count) // 0
+```
+<br>
 
-
-// 코드상에서 여러 줄의 문자열의 직접 쓰고 싶다면
-// """
-// 내용
-// """ 식으로 작성하면 된다
+### 7. 코드상에서 여러 줄의 문자열의 직접 쓰고 싶다면
+"""  
+내용  
+"""  
+식으로 작성하면 된다
+```swift
 greeting = """
 안녕하세요
 세줄로
