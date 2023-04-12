@@ -14,6 +14,7 @@ Today I Learned
 <br><br><br>
 
 ## Swift
+* [변수와 상수](https://github.com/jihoooo97/TIL/blob/main/Swift/변수와%20상수.md)
 * [Enum]()
 <br><br><br>
 
