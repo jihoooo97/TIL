@@ -15,7 +15,8 @@ Today I Learned
 
 ## Swift
 * [변수와 상수](https://github.com/jihoooo97/TIL/blob/main/Swift/변수와%20상수.md)
-* [데이터 타입](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Type.md)
+* [데이터 타입 기본](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Type%20기본.md)
+* [데이터 타입 고급](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Type%20고급.md)
 * [Int와 UInt](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Int와%20UInt.md)
 * [Bool](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Bool.md)
 * [Float과 Double](https://github.com/jihoooo97/TIL/blob/main/Swift/Type/Float과%20Double.md)
