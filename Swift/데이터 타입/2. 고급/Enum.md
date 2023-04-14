@@ -189,10 +189,10 @@ enum Developer: String, CaseIterable {
         return all + [.graduate]
         #endif
     }
-
-    let allCases: [Developer] = Developer.allCases
-    print(allCases)
 }
+
+let allCases: [Developer] = Developer.allCases
+print(allCases)
 ```
 <br><br>
 
