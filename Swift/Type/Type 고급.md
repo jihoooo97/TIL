@@ -8,7 +8,6 @@
 - Swift에서 값 타입의 데이터 교환은 엄밀히 말하면 타입캐스팅이 아닌 새로운 인스턴스를 생성하여 할당하는 것이다
 - Swift가 컴파일 시 타입을 확인하는 것을 `타입 확인` 이라고 한다  
   -> 여러 타입을 섞어 사용할 때 발생할 수 있는 런타임 오류를 피할 수 있다
-<br>
 
 ### 타입 추론
 Swift에서는 변수나 상수를 선언할 때 특정 타입을 명시하지 않아도 컴파일러가 할당된 값을 기준으로 변수나 상수의 타입을 결정한다
@@ -36,3 +35,10 @@ let time: MyInt = 1609
 year = age
 year = time
 ```
+<br><br>
+
+## 종류
+- [`Tuple` - 튜플](https://github.com/jihoooo97/TIL/edit/main/Swift/Type/Tuple.md)
+- [`Collection` - 컬렉션](https://github.com/jihoooo97/TIL/edit/main/Swift/Type/Collection.md)
+- [`Enum` - 열거형](https://github.com/jihoooo97/TIL/edit/main/Swift/Type/Enum.md)
+<br>
