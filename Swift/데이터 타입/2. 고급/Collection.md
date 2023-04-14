@@ -2,6 +2,6 @@
 > 많은 수의 데이터를 묶어서 저장하고 관리할 수 있는 타입
 
 ## 종류
-- `Array`
-- `Dictionary`
-- `Set`
+- [`Array`]()
+- [`Dictionary`]()
+- [`Set`]()
