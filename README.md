@@ -22,7 +22,7 @@
 - ### 데이터 타입
   - [기본](https://github.com/jihoooo97/TIL/blob/main/Swift/데이터%20타입/1.%20기본/데이터%20타입%20기본.md)
   - [고급](https://github.com/jihoooo97/TIL/blob/main/Swift/데이터%20타입/2.%20고급/데이터%20타입%20고급.md)
-- ### [연산자](https://github.com/jihoooo97/TIL/blob/main/Swift/연산자.md)
+- ### [연산자](https://github.com/jihoooo97/TIL/blob/main/Swift/연산자/연산자.md)
 - ### [흐름 제어](https://github.com/jihoooo97/TIL/blob/main/Swift/흐름%20제어.md)
 - ### 함수
 <br><br><br>
