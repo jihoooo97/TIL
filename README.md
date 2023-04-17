@@ -31,4 +31,7 @@
 - [UICollectionViewCompositionalLayout](https://github.com/jihoooo97/TIL/blob/main/UIKit/UICollectionViewCompositionalLayout.md)
 <br><br><br>
 
-# Git
+# `Git`
+
+# `Error`
+- [Invalid update: invalid number of sections.]
