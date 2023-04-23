@@ -28,7 +28,7 @@
 <br><br><br>
 
 # `iOS`
-- [Coordinator Pattern]
+- [Coordinator Pattern]()
 <br><br><br>
 
 # `UIKit`
@@ -36,6 +36,8 @@
 <br><br><br>
 
 # `SwiftUI`
+- [NavigationView]()
+  - NavigationBar Duplicate issue
 <br><br><br>
 
 # `Library`
