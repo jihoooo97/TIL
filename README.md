@@ -36,8 +36,13 @@
 <br><br><br>
 
 # `SwiftUI`
+- [List]()
+  - ForEach
 - [NavigationView]()
   - NavigationBar Duplicate issue
+  - Searchable
+- [Preview Binding]
+  - Constant 사용
 <br><br><br>
 
 # `Library`
