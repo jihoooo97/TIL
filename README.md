@@ -23,8 +23,15 @@
   - [기본](https://github.com/jihoooo97/TIL/blob/main/Swift/데이터%20타입/1.%20기본/데이터%20타입%20기본.md)
   - [고급](https://github.com/jihoooo97/TIL/blob/main/Swift/데이터%20타입/2.%20고급/데이터%20타입%20고급.md)
 - ### [연산자](https://github.com/jihoooo97/TIL/blob/main/Swift/연산자/연산자.md)
-- ### [흐름 제어](https://github.com/jihoooo97/TIL/blob/main/Swift/흐름%20제어.md)
-- ### 함수
+- ### [흐름 제어](https://github.com/jihoooo97/TIL/blob/main/Swift/흐름%20제어/흐름%20제어.md)
+  - 조건문
+    - [if 구문](https://github.com/jihoooo97/TIL/blob/main/Swift/흐름%20제어/조건문/if%20구문.md)
+    - [switch 구문](https://github.com/jihoooo97/TIL/blob/main/Swift/흐름%20제어/조건문/switch%20구문.md)
+  - 반복문
+    - [for-in 구문](https://github.com/jihoooo97/TIL/blob/main/Swift/흐름%20제어/반복문/for-in%20구문.md)
+    - [while 구문](https://github.com/jihoooo97/TIL/blob/main/Swift/흐름%20제어/반복문/while%20구문.md)
+    - [repeat-while 구문](https://github.com/jihoooo97/TIL/blob/main/Swift/흐름%20제어/반복문/repeat-while%20구문.md)
+- ### [함수](https://github.com/jihoooo97/TIL/tree/main/Swift/함수/함수.md)
 <br><br><br>
 
 # `iOS`
@@ -41,7 +48,7 @@
 - [NavigationView]()
   - NavigationBar Duplicate issue
   - Searchable
-- [Preview Binding]
+- [Preview Binding]()
   - Constant 사용
 <br><br><br>
 
