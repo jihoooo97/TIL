@@ -32,6 +32,10 @@
     - [while 구문](https://github.com/jihoooo97/TIL/blob/main/Swift/흐름%20제어/반복문/while%20구문.md)
     - [repeat-while 구문](https://github.com/jihoooo97/TIL/blob/main/Swift/흐름%20제어/반복문/repeat-while%20구문.md)
 - ### [함수](https://github.com/jihoooo97/TIL/tree/main/Swift/함수/함수.md)
+- ### [옵셔널](https://github.com/jihoooo97/TIL/blob/main/Swift/옵셔널/옵셔널.md)
+- ### [구조체와 클래스](https://github.com/jihoooo97/TIL/blob/main/Swift/구조체와%20클래스/구조체와%20클래스.md)
+  - [구조체](https://github.com/jihoooo97/TIL/blob/main/Swift/구조체와%20클래스/구조체.md)
+  - [클래스](https://github.com/jihoooo97/TIL/blob/main/Swift/구조체와%20클래스/클래스.md)
 <br><br><br>
 
 # `iOS`
