@@ -36,6 +36,9 @@
 - ### [구조체와 클래스](https://github.com/jihoooo97/TIL/blob/main/Swift/구조체와%20클래스/구조체와%20클래스.md)
   - [구조체](https://github.com/jihoooo97/TIL/blob/main/Swift/구조체와%20클래스/구조체.md)
   - [클래스](https://github.com/jihoooo97/TIL/blob/main/Swift/구조체와%20클래스/클래스.md)
+- ### [프로퍼티와 메서드](https://github.com/jihoooo97/TIL/blob/main/Swift/프로퍼티와%20메서드/프로퍼티와%20메서드.md)
+  - [프로퍼티](https://github.com/jihoooo97/TIL/blob/main/Swift/프로퍼티와%20메서드/프로퍼티.md)
+  - [메서드](https://github.com/jihoooo97/TIL/blob/main/Swift/프로퍼티와%20메서드/메서드.md)
 <br><br><br>
 
 # `iOS`
