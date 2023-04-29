@@ -66,4 +66,6 @@
 
 # `Error`
 - [Invalid update: invalid number of sections.]
+- You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
 <br><br><br>
