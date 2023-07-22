@@ -46,6 +46,7 @@
 - ### [맵, 필터, 리듀스](https://github.com/jihoooo97/TIL/blob/main/Swift/맵,%20필터,%20리듀스/맵,%20필터,%20리듀스.md)
 - ### [모나드](https://github.com/jihoooo97/TIL/blob/main/Swift/모나드/모나드.md)
 - ### [서브스크립트](https://github.com/jihoooo97/TIL/blob/main/Swift/서브스크립트/서브스크립트.md)
+- ### [상속](https://github.com/jihoooo97/TIL/blob/main/Swift/상속/상속.md)
 <br><br><br>
 
 # `iOS`
