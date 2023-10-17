@@ -31,3 +31,90 @@
 > 인스턴스가 지속해서 필요한 상황에서 ARC는 인스턴스가 메모리에서 해제되지 않도록 인스턴스 참조 여부를 계속 추적한다. 다른 인스턴스의 프로퍼티나 변수, 상수 등 어느 한 곳에서 인스턴스를 참조한다면 ARC가 해당 인스턴스를 해제하지 않고 유지해야 하는 명분이 된다. 인스턴스를 메모리에 유지시키려면 이런 명분을 ARC에 제공해야 한다는 것을 명심해야 한다.
 
 <br><br>
+
+
+## 강한참조
+
+> 인스턴스가 계속해서 메모리에 남아있어야 하는 명분을 만들어 주는 것이 바로 `강한참조 - Strong Reference`이다. 인스턴스는 참조 횟수가 0이 되는 순간 메모리에서 해제되는데, 인스턴스를 다른 인스턴스의 프로퍼티나 변수, 상수 등에 할당할 때 강한참조를 사용하면 참조 횟수가 1 증가한다. 또, 강한참조를 사용하는 프로퍼티, 변수, 상수 등에 nil을 할당해주면 원래 자신에게 할당되어 있던 인스턴스의 참조 횟수가 1 감소한다.
+
+> 참조의 기본은 강한참조이므로 클래스 타입의 프로퍼티, 변수, 상수 등을 선언할 때 별도의 식별자를 명시하지 않으면 강한참조를 한다. 이제까지 우리는 알지 못하고 써왔지만 프로퍼티와 변수, 상수를 모두 강한참조로 선언해주었던 것이다.
+
+```swift
+class Person {
+    let name: String
+
+    init(name: String) {
+        self.name = name
+        print("\(name) is being initialized")
+    }
+
+    deinit {
+        print("\(name) is being deinitialized")
+    }
+}
+
+var reference1: Person?
+var reference2: Person?
+var reference3: Person?
+
+reference1 = Person(name: "jiho")   
+// jiho is being initialized
+// 인스턴스의 참조 횟수: 1
+
+reference2 = reference1     // 인스턴스의 참조 횟수: 2
+reference3 = reference1     // 인스턴스의 참조 횟수: 3
+
+reference3 = nil
+reference2 = nil
+reference1 = nil
+// jiho is being deinitialized
+```
+
+<br>
+
+> reference1에 할당된 Person 클래스 타입의 인스턴스는 처음 메모리에 생성된 후 강한참조로 reference1에 할당되기 때문에 참조 횟수가 1 증가한다. 그 후 reference2에 강한참조로 할당되기 때문에 참조 횟수가 1 더 증가한다. 마찬가지로 이 인스턴스가 reference3에 할당될 때도 참조 횟수가 1 증가한다. 하나의 인스턴스가 세 개의 변수에 강한참조로 참조하고 있는 것이다. 따라서 계속 메모리에 살아있을 명분이 충분하다.
+
+> 다음은 해제이다. 마지막에 참조되었던 reference3에서 제일 먼저 인스턴스 참조를 그만두었다. 그러면 인스턴스의 참조 횟수는 1 감소하여 2가 된다. 마찬가지로 reference2와 reference1에서 순차적으로 참조를 그만두면 참조 횟수가 0이 된다. 참조 횟수가 0이 되는 순간 인스턴스는 ARC의 규칙에 의해 메모리에서 해제되며 메모리에서 해제되기 직전에 디이니셜라이저를 호출한다.
+
+```swift
+func foo() {
+    let jiho = Person(name: "jiho")     // jiho is initialized
+    // 인스턴스의 참조 횟수: 1
+
+    // 함수 종료 시점
+    // 인스턴스의 참조 횟수: 0
+    // jiho is being deinitialized
+}
+
+foo()
+```
+
+<br>
+
+> foo()라는 함수 내부에 jiho라 정의한 강한참조 상수가 있다. Person 타입의 인스턴스는 이니셜라이저에 의해 생성된 후 jiho 상수에 할당할 때 참조 횟수가 1이 된다. 그리고 강한참조 지역변수(상수)가 사용된 범위의 코드 실행이 종료되면 그 지역변수(상수)가 참조하던 인스턴스의 참조 횟수가 1 감소한다. 그래서 jiho 상수가 강한참조하던 인스턴스의 참조 횟수가 1 감소하여 인스턴스의 참조 횟수가 0이 된다. 인스턴스의 참조 횟수가 0이 되는 순간 인스턴스는 메모리에서 해제된다.
+
+<br>
+
+```swift
+var globalReference: Person?
+
+func foo() {
+    let jiho = Person(name: "jiho")  // jiho is initialized
+    // 인스턴스의 참조 횟수: 1
+
+    globalReference = jiho  // 인스턴스의 참조 횟수: 2
+
+    // 함수 종료 시점
+    // 인스턴스의 참조 횟수: 0
+}
+
+foo()
+```
+
+<br>
+
+> 인스턴스가 foo() 함수 내부에서 생성된 후 강한참조로 jiho 상수에 참조된 것은 이전의 예제 코드와 다르지 않다. 그런데 이번엔 인스턴스가 강한참조를 하는 전역변수 globalReference에 강한참조되면서 참조 횟수가 1 더 증가하여 2가 되었다. 그 상태에서는 함수가 종료되면 참조 횟수가 1 감소하여도 여전히 참조 횟수가 1이므로 메모리에서 해제되지 않는다.
+
+<br><br>
+
+
