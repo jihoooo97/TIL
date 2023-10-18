@@ -118,3 +118,85 @@ foo()
 <br><br>
 
 
+## 강한참조 순환 문제
+
+> 복합적으로 강한참조가 일어나는 상황에서 강한참조의 규칙을 모르고 사용하게 되면 문제가 발생할 수 있다. 인스턴스끼리 서로가 서로를 강한참조할 때를 대표적인 예로 들 수 있다. 이를 `강한참조 순환 - Strong Reference Cycle`이라고 한다.
+
+```swift
+class Person {
+    let name: String
+
+    init(name: String) {
+        self.name = name
+    }
+
+    var room: Room?
+
+    deinit {
+        print("\(name) is being deinitialized")
+    }
+}
+
+class Room {
+    let number: String
+
+    init(number: String) {
+        self.number = number
+    }
+
+    var host: Person?
+
+    deinit {
+        print("Room \(number) is being deinitialized")
+    }
+}
+
+var jiho: Person? = Person(name: "jiho")  // Person 인스턴스의 참조 횟수: 1
+var room: Room? = Room(number: "505")     // Room 인스턴스의 참조 횟수: 1
+
+room?.host = jiho   // Person 인스턴스의 참조 횟수: 2
+jiho?.room = room   // Room 인스턴스의 참조 횟수: 2
+
+jiho = nil  // Person 인스턴스의 참조 횟수: 1
+room = nil  // Room 인스턴스의 참조 횟수: 1
+```
+
+<br>
+
+> 디이니셜라이저가 영원히 호출되지 않는 것을 확인할 수 있다.
+
+> 두 클래스 모두 클래스 정의 다음 코드를 보면 jiho는 Person? 타입의 변수고, room은 Room? 타입의 변수이다. 각 변수에 맞는 타입으로 Person 클래스의 인스턴스와 Room 클래스의 인스턴스가 각각 메모리에 할당될 때 강한참조를 하므로 참조 횟수가 1씩 증가한다.
+
+> 두 인스턴스 모두 참조 횟수가 1인 상태에서 room이 참조하는 Room 클래스 인스턴스의 저장 프로퍼티인 host 프로퍼티에 변수 jiho가 참조하는 Person 클래스 인스턴스를 할당한다. 이때 host 프로퍼티는 Room 클래스에 정의된 대로 강한참조를 하므로 변수 jiho가 참조하는 Person 클래스 인스턴스는 참조 횟수가 1 증가하여 2가 된다. 마찬가지로 jiho가 참조하는 Person 클래스 인스턴스의 저장 프로퍼티인 room 프로퍼티에 변수 room이 참조하는 Room 클래스 인스턴스를 할당하면 room 프로퍼티는 강한참조를 하므로 변수 room이 참조하는 Room 클래스의 인스턴스는 참조 횟수가 1 증가하여 2가 된다.
+
+> 서로 강한참조를 하는 상태에서 jiho 변수에 nil을 할당하면 jiho가 참조하는 인스턴스의 참조 횟수는 1 감소하여 참조 횟수가 1이 된다. 그렇지만 이제 jiho가 참조하던 인스턴스를 참조할 방법은 변수 room이 참조하는 인스턴스의 host 프로퍼티로 접근하는 방법밖에 없다. 다행히도 room 변수가 아직 그 인스턴스를 강한참조로 붙들고 있기 때문에 인스턴스는 메모리에서 해제되지 않은 상황이다.
+
+> 그렇지만 불행은 변수 room에 nil을 할당해주었을 때 일어난다. room 변수가 참조하던 인스턴스는 참조 횟수가 1 감소하고 최종적으로 참조 횟수가 1이 된다. 그렇지만 이제 jiho 변수가 참조하던 Person 클래스의 인스턴스에 접근할 방법도, room 변수가 참조하던 Room 클래스의 인스턴스에 접근할 방법도 사라졌다. 참조 횟수가 0이 되지 않는 한, ARC의 규칙대로라면 인스턴스를 메모리에서 해제시키지 않기 때문에 이렇게 두 인스턴스 모두 참조 횟수 1을 남겨둔 채, 메모리에 좀비처럼 남아 있게 된다. 메모리 누수가 발생하는 것이다.  
+
+> 이렇게 두 이니셜라이저가 서로를 참조하는 상황에서 강한참조 순환 문제가 발생할 수 있다.
+
+<br>
+
+
+```swift
+var jiho: Person? = Person(name: "jiho")  // Person 인스턴스의 참조 횟수: 1
+var room: Room? = Room(number: "505")     // Room 인스턴스의 참조 횟수: 1
+
+room?.host = jiho   // Person 인스턴스의 참조 횟수: 2
+jiho?.room = room   // Room 인스턴스의 참조 횟수: 2
+
+jiho?.room = nil    // Room 인스턴스의 참조 횟수: 1
+jiho = nil          // Person 인스턴스의 참조 횟수: 1
+
+room?.host = nil    // Person 인스턴스의 참조 횟수: 0
+// jiho is being deinitialized
+
+room = nil          // Room 인스턴스의 참조 횟수: 0
+// Room 505 is being deinitialized
+```
+
+<br>
+
+> 변수 또는 프로퍼티에 nil을 할당하면 참조 횟수가 감소한다는 규칙을 생각해보면 위와 같은 방법으로 인스턴스를 메모리에서 해제시킬 수 있을지도 모른다. 그렇지만 만약 실수로 깜빡한다면? 해제해야 할 프로퍼티가 너무 많거나 귀찮다면? 약한참조와 미소유참조를 통해 조금 더 명확한 해결책을 찾아볼 수 있다.
+
+<br><br>
