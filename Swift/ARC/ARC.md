@@ -322,3 +322,59 @@ chaewon = nil
 
 <br><br>
 
+
+## 미소유 옵셔널 참조
+
+> 클래스를 참조하는 옵셔널을 미소유로 표시할 수 있다. ARC 소유 모델에 따르면 미소유 옵셔널 참조와 약한참조를 같은 상황에 사용할 수 있다. 차이가 있다면 미소유 옵셔널 참조는 항상 유효한 객체를 가리키거나 그렇지 않으면 nil을 할당해 주도록 직접 신경을 써야 한다는 것이다.
+
+> 특정 학과가 운영하는 과목들의 수강 순서를 나타내려 한다. 각 과목에는 다음 수강 과목이 있을 수도, 없을 수도 있다. 이 관계를 나타내기 위해 미소유 옵셔널 참조를 사용해본다.
+
+```swift
+class Department {
+    var name: String
+    var subjects: [Subject] = []
+
+    init(name: String) {
+        self.name = name
+    }
+}
+
+class Subject {
+    var name: String
+    unowned var department: Department
+    unowned var nextSubject: Subject?
+
+    init(name: String, in department: Department) {
+        self.name = name
+        self. department = department
+        self.nextSubject = nil
+    }
+}
+
+
+let department = Department(name: "Computer Science")
+
+let intro = Subject(name: "Computer Architecture", in: department)
+let intermediate = Subject(name: "Swift Language", in: department)
+let advanced = Subject(name: "iOS App Programming", in: department)
+
+intro.nextSubject = intermediate
+intermediate.nextSubject = advanced
+department.subjects = [intro, intermediate, advanced]
+```
+
+<br>
+
+> Department는 학과에서 운영하는 각 과목을 배열에 담아 강한참조하고 있다. 학과가 과목들을 소유하고 있는 형태이다. Subject는 두 개의 미소유참조를 갖고 있다. 하나는 학과이고 하나는 학생이 수강해야하는 다음 과목을 참조하고 있다. 이 두 프로퍼티는 과목이 소유하고 있지 않은 것이다. 각각의 과목은 특정 학과에 꼭 속해 있기 때문에 department 프로퍼티는 옵셔널이 아니다. 그렇지만 모든 과목이 다음 차례의 과목을 갖고 있는 것은 아니기 때문에 nextSubject 프로퍼티는 옵셔널이다. 만약 nextSubject 프로퍼티의 타입이 옵셔널이 아니었다면 Subject의 이니셜라이저에서 nextSubject에 nil을 할당해 줄 수 없었을 것이다.
+
+> 클래스를 정의한 후 학과와 세 개의 과목의 인스턴스를 생성한다. intro, intermediate 과목은 다음 수강 과목을 미소유 옵셔널 참조로 nextSubject 프로퍼티에 저장한다.
+
+> 미소유 옵셔널 참조는 옵셔널의 값인 클래스 인스턴스를 강한참조를 하지 않기 때문에, 옵셔널 값인 클래스의 인스턴스가 메모리에서 해제될 때 ARC에 의해 보호받지 못한다. 이는 미소유참조와 동일한 동작을 하지만, 미소유 옵셔널 참조는 nil이 될 수 있다는 점이 미소유참조와 다르다.
+
+> 옵셔널이 아닌 미소유참조와 같이 nextSubject가 항상 올바른(메모리에서 해제되지 않고 살아 있는) 과목 인스턴스를 참조하도록 신경 써야 한다. 예를 들어, department,subjects에서 한 과목을 제거한다면, 그 과목을 nextSubject로 참조하고 있는 인스턴스에서 nextSubject의 참조를 제거해 줘야 한다. 만약 그렇지 않다면 참조하려고 할 때 오류가 발생할 것이다.
+
+> - 옵셔널은 값 타입 아닌가요?  
+> 옵셔널 값의 기본 타입은 Swift 표준 라이브러리에 열거형으로 정의된 Optional 타입이다. 즉, 값 타입이란 뜻이자. 값 타입은 참조 타입이 아니므로 unowned 등으로 참조 관리를 할 수 없다. 그러나, 옵셔널은 값 타입일지도 예외적으로 unowned 등을 활용해 참조 관리를 할 수 있다. 또, 클래스를 감싸는 옵셔널은 참조 횟수 계산을 하지 않기 때문에 강한참조로 관리할 필요가 없다.
+
+<br><br>
+
