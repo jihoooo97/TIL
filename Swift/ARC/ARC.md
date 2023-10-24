@@ -378,3 +378,60 @@ department.subjects = [intro, intermediate, advanced]
 
 <br><br>
 
+
+## 미소유참조와 암시적 추출 옵셔널 프로퍼티
+
+> 강한참조 순환 문제에서 Person은 Room 타입의 강한참조 프로퍼티 room이 있고, Room은 Person 타입의 강한참조 프로퍼티 host가 있었다. 또, Person 타입의 변수 jiho와 Room 타입의 변수 room에 nil을 할당할 수 있었는데, 이 모두는 강한참조 순환 문제가 발생할 가능성을 열어두는 것이다. 이 강한참조 순환 문제는 약한참조를 통해 해결할 수 있었다.
+
+> 미소유참조 예제에서 CreditCard는 owner를 소유하지 않으면서, nil을 할당할 수 없는 미소유참조 상수 프로퍼티를 사용함으로써 강한참조 순환 무제를 해결해볼 수 있었다.
+
+> 그런데 앞의 두 문제 외에 또 다른 문제 상황이 있다. 서로 참조해야하는 프로퍼티에 값이 꼭 있어야 하면서도 한번 초기화되면 그 이후에는 nil을 할당할 수 없는 조건을 갖추어야 하는 경우이다.
+
+```swift
+class Company {
+    let name: String
+    var ceo: CEO!
+
+    init(name: String, ceoName: String) {
+        self.name = name
+        self.ceo = CEO(name: ceoName, company: self)
+    }
+
+    func introduce() {
+        print("\(name)의 CEO는 \(ceo.name)입니다.")
+    }
+}
+
+class CEO {
+    let name: String
+    unowned let company: Company
+
+    init(name: String, company: Company) {
+        self.name = name
+        self.company = company
+    }
+
+    func introduce() {
+        print("\(name)는 \(company.name)의 CEO 입니다.")
+    }
+}
+
+
+let company = Company(name: "무한상사", ceoName: "김태호")
+company.introduce()     // 무한상사의 CEO는 김태호입니다.
+company.ceo.introduce() // 김태호는 무한상사의 CEO입니다.
+```
+
+<br>
+
+> 회사(Company)를 창립(init)할 때는 꼭 최고경영자(CEO)가 있어야 하며, 최고경영자는 단 하나의 회사를 운영한다. 회사가 사라지면 최고경영자가 있을 의미가 없다. 즉, Company를 초기화할 때 CEO 인스턴스가 생성되면서 프로퍼티로 할당되어야 하고, Company가 존재하는 한 ceo 프로퍼티에는 꼭 CEO 인스턴스가 존재해야 하는 상황이다. 또, CEO의 인스턴스는 꼭 회사가 있는 경우에만 초기화할 수 있다. 즉, 회사를 꼭 운영하고 있어야 최고경영자의 존재가 인정되는 것이다. 그리고 회사가 사라지면 최고경영자가 있을 의미가 없기 때문에 강한참조를 사용하지 않는다.
+
+> 최고 경영자는 회사를 꼭 운영하고 있어야 하므로 CEO 타입의 company는 옵셔널이 될 수 없다. 옵셔널이 될 수 없다는 뜻은 약한참조를 사용할 수 없다는 뜻이다. 그렇지만 강한참조를 하면 강한참조 순환 문제가 발생할 수 있으므로 미소유참조를 한다.
+
+> Company의 ceo 프로퍼티에 암시적 추출 옵셔널을 사용한 이유는, Company 타입의 인스턴스를 초기화 할 때, CEO 타입의 인스턴스를 생성하는 과정에서 자기 자신을 참조하도록 보내줘야 하기 때문이다. 즉, 암시적 추출 옵셔널이 아닌 일반 프로퍼티를 사용했다면 자신의 초기화가 끝난 후(init 메서드가 호출된 이후)에만 `CEO(name: ceoName, company: self)`와 같은 코드를 호출할 수 있다는 뜻이다.
+
+> 그래서 모든 조건을 충족하려면 Company와 ceo 프로퍼티는 암시적 추출 옵셔널로, CEO의 company 프로퍼티는 미소유참조 상수를 사용하면 된다.  
+> 암시적 추출 옵셔널 프로퍼티는 이니셜라이저의 2단계 초기화 조건을 충족시키기 위해 사용했으며 미소유참조 프로퍼티는 약한참조를 사용할 수 없는 경우(옵셔널이 아니어야 하거나 상수로 지정해야 하는 경우)에 강한 참조를 피하기 위해서 사용할 수 있다.
+
+<br><br>
+e9f8319
