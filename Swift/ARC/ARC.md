@@ -566,4 +566,61 @@ closure()   // nil 10
 
 > 획득목록에서 x를 약한참조로, y를 미소유참조하도록 지정했다. x가 약한참조를 하게 되므로 클로저 내부에서 사용하더라도 클로저는 x가 참조하는 인스턴스의 참조 횟수를 증가시키지 않는다. 그렇게 되면 변수 x가 참조하는 인스턴스가 메모리에서 해제되어 클로저 내부에서도 더 이상 참조가 불가능한 것을 볼 수 있다. y는 미소유참조를 했기 때문에 클로저가 참조 횟수를 증가시키지 않지만, 만약 메모리에서 해제된 상태에서 사용하려 한다면 실행중에 오류로 애플리케이션이 강제로 종료될 가능성이 있다.
 
->
+> 클로저의 획득목록을 통해 클로저의 강한참조 순환 문제를 해결해보자
+
+```swift
+class Person {
+    let name: String
+    let hobby: String?
+
+    lazy var introduce: () -> String = { [unowned self] in
+        var introduction: String = "My name is \(self.name)."
+
+        guard let hobby = self.hobby else {
+            return introduction
+        }
+
+        introduction += " "
+        introduction += "My hobby is \(hobby)."
+        return introduction
+    }
+
+    init(name: String, hobby: String? = nil) {
+        self.name = name
+        self.hobby = hobby
+    }
+
+    deinit {
+        print("\(name) is being deinitialized")
+    }
+}
+
+var jiho: Person? = Person(name: "jiho", hobby: "coding")
+print(jiho?.introduce())  // My name is jiho. My hobby is coding.
+jiho = nil  // jiho is being deinitialized
+```
+
+<br>
+
+> jiho가 참조하는 인스턴스가 의도한 대로 메모리에서 해제되는 것을 확인할 수 있다. introduce 프로퍼티의 클로저가 self를 미소유참조하도록 획득목록에 명시했기 때문이다. self 프로퍼티를 미소유참조하도록 한 것은, 해당 인스턴스가 존재하지 않는다면 프로퍼티도 호출할 수 없으므로 self는 마소유참조를 하더라도 실행 중에 오류를 발생시킬 가능성이 거의 없다고 볼 수 있기 때문이다.
+
+> self를 미소유참조로 지정해주었을 때 문제가 발생할 수 있다. 프로퍼티로 사용하던 클로저를 다른 곳에서 참조하게 된 후 인스턴스가 메모리에서 해제되었을 때이다. 그런 상황에 클로저가 실행되면 잘못된 메모리 접근을 야기한다. 그러므로 미소유참조는 신중히 사용해야 하며, 문제가 될 소지가 있다면 약한참조를 사용하면 된다.
+
+```swift
+var jiho: Person? = Person(name: "jiho", hobby: "coding")
+var chaewon: Person? = Person(name: "chaewon", hobby: "fighting")
+
+// chaewon의 introduce 프로퍼티에 jiho의 introduce 프로퍼티 클로저의 참조 할당
+chaewon?.introduce = jiho?.introduce ?? { " " }
+
+// 아직 jiho가 참조하는 인스턴스가 해제되지 않았기 때문에
+// 클로저 내부에서 self(jiho 변수가 참조하는 인스턴스) 참조 가능
+print(jiho?.introduce())  // My name is jiho, My hobby is coding.
+
+jiho = nil  // jiho is being deinitialized
+print(hana?.introduce())  // [Error] 이미 메모리에서 해제된 인스턴스(jiho) 참조 시도
+```
+
+<br>
+
+> 미소유참조로 인한 문제상황이 발생할 수 있다면 약한참조로 변경하여 옵셔널로 사용해도 무방하다.
