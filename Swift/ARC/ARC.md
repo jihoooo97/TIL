@@ -624,3 +624,54 @@ print(hana?.introduce())  // [Error] 이미 메모리에서 해제된 인스턴�
 <br>
 
 > 미소유참조로 인한 문제상황이 발생할 수 있다면 약한참조로 변경하여 옵셔널로 사용해도 무방하다.
+
+```swift
+class Person {
+    let name: String
+    let hobby: String?
+
+    lazy var introduce: () -> String { [weak self] in
+        guard let `self` = self else {
+            return "원래의 참조 인스턴스가 없어졌습니다."
+        }
+
+        var introduction: String = "My name is \(self.name)"
+
+        guard let hobby = self.hobby else {
+            return introduction
+        }
+
+        introduction += " "
+        introduction += "My hobby is \(self.hobby)."
+
+        return introduction
+    }
+
+    init(name: String, hobby: String? = nil) {
+        self.name = name
+        self.hobby = hobby
+    }
+
+    deinit {
+        print("\(name) is being deinitialized")
+    }
+}
+
+var jiho: Person? = Person(name: "jiho", hobby: "coding")
+var chaewon: Person? = Person(name: "chaewon", hobby: "fighting")
+
+// chaewon의 introduce 프로퍼티에 jiho의 introduce 프로퍼티 클로저의 참조 할당
+chaewon?.introduce = jiho?.introduce ?? { " " }
+
+print(jiho?.introduce())  // My name is jiho, My hobby is coding.
+
+jiho = nil  // jiho is being deinitialized
+
+print(chaewon?.introduce())  // 원래의 참조 인스턴스가 없어졌습니다.
+```
+
+<br>
+
+> 이처럼 클로저의 획득 특성 때문에 클로저가 프로퍼티로 사용될 경우 발생할 수 있는 강한참조 순환 문제는 클로저의 획득목록을 통해 해결할 수 있는 것을 알 수 있다.
+
+<br><br>
