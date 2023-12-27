@@ -57,6 +57,7 @@
 - ### [ARC](https://github.com/jihoooo97/TIL/blob/main/Swift/ARC/ARC.md)
 - ### [오류처리](https://github.com/jihoooo97/TIL/blob/main/Swift/오류처리/오류처리.md)
 - ### [메모리 안전](https://github.com/jihoooo97/TIL/blob/main/Swift/메모리%20안전/메모리%20안전.md)
+- ### [불명확%20타입](https://github.com/jihoooo97/TIL/blob/main/Swift/불명확%20타입/불명확%20타입.md)
 <br><br><br>
 
 # `iOS`
