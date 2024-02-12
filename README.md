@@ -6,11 +6,18 @@
 `1%의 발전`과 `1%의 퇴보`는 **1000배 이상** 의 차이
 <br><br><br><br>
 
-# `OOP`
-- [OOP](https://github.com/jihoooo97/TIL/blob/main/OOP/OOP.md)
-- [Class](https://github.com/jihoooo97/TIL/blob/main/OOP/Class.md)
-- [Object](https://github.com/jihoooo97/TIL/blob/main/OOP/Object.md)
-- [Method](https://github.com/jihoooo97/TIL/blob/main/OOP/Method.md)
+# `CS`
+- ## `객체지향`
+  - [OOP](https://github.com/jihoooo97/TIL/blob/main/OOP/OOP.md)
+  - [Class](https://github.com/jihoooo97/TIL/blob/main/OOP/Class.md)
+  - [Object](https://github.com/jihoooo97/TIL/blob/main/OOP/Object.md)
+  - [Method](https://github.com/jihoooo97/TIL/blob/main/OOP/Method.md)
+- ## `자료구조`
+- ## `네트워크`
+- ## `운영체제`
+- ## `알고리즘`
+- ## `데이터베이스`
+
 <br><br><br>
 
 # `FP`
