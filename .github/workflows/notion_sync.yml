@@ -1,0 +1,15 @@
+on:
+  schedule:
+    - cron: '0 * * * *' # 매 시간 정각에 실행
+  workflow_dispatch: # 수동으로도 실행 가능하게 설정
+
+jobs:
+  notion_to_github:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: brew-notion/notion-to-github@main # 오픈소스 액션 활용
+        with:
+          notion_token: ${{ secrets.NOTION_TOKEN }}
+          database_url: ${{ secrets.NOTION_DATABASE_URL }}
+          output_path: 'SQLD_Study' # 저장될 폴더명
