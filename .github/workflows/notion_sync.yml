@@ -1,3 +1,5 @@
+name: Notion to GitHub Sync
+
 on:
   schedule:
     - cron: '0 * * * *' # 매 시간 정각에 실행
