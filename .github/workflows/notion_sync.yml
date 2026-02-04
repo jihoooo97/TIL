@@ -12,4 +12,4 @@ jobs:
         with:
           notion_token: ${{ secrets.NOTION_TOKEN }}
           database_url: ${{ secrets.NOTION_DATABASE_URL }}
-          output_path: 'SQLD_Study' # 저장될 폴더명
+          output_path: 'SQLD' # 저장될 폴더명
